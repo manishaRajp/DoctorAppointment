@@ -162,8 +162,12 @@
                                       class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
                               <a class="dropdown-item" href="#"><i
                                       class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
-                              <a class="dropdown-item" href="#"><i class="mdi mdi-logout m-r-5 text-muted"></i>
+                              <a class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('admin.logout') }}"><i class="mdi mdi-logout m-r-5 text-muted"></i>
                                   Logout</a>
+                              <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
+                                  class="d-none">
+                                  @csrf
+                              </form>
                           </div>
                       </li>
 
@@ -184,9 +188,9 @@
           </div>
           <!-- Top Bar End -->
 
-          
+
           <!-- content -->
-        {{-- </div> 
+          {{-- </div> 
     </div> --}}
 
-  <!-- End Right content here -->
+          <!-- End Right content here -->
