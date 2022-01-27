@@ -10,7 +10,7 @@
               <div class="topbar-left	d-none d-lg-block">
                   <div class="text-center">
 
-                      <a href="index.html" class="logo"><img src="assets/images/logo.png" height="20"
+                      <a href="{{ route('admin.dasboard')}}" class="logo"><img src="assets/images/logo3.png" height="20"
                               alt="logo"></a>
                   </div>
               </div>
