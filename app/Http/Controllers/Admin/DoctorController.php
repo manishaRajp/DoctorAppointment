@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
@@ -24,7 +26,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.dashboard.doctor.add');
     }
 
     /**
@@ -35,7 +37,20 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newUser = Doctor::updateOrCreate([
+            'id'   => Auth::user()->id,
+        ], [
+            'name'     => $request->get('name'),
+            'email' => $request->get('email'),
+            'password'    => $request->get("password"),
+            'phone_number'   => $request->get('phone_number'),
+            'department'       => $request->get('department'),
+            'address'   => $request->get('address'),
+            'education'    => $request->get('education'),
+            'description'    => $request->get('description'),
+            'gender'    => $request->get('gender'),
+        ]);
+        return redirect()->route('admin.doctor.index');
     }
 
     /**
