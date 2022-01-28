@@ -52,8 +52,8 @@
                         <li><a href="{{ route('admin.patient.index') }}">View</a></li>
                         <li><a href="{{ route('admin.patient.create') }}">Create</a></li>
                     </ul>
-
                 </li>
+                <li><a href="{{ route('admin.department.create') }}">Department</a></li>
             </ul>
         </div>
         <div class="clearfix"></div>

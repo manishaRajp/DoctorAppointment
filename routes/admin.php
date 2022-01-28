@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AppoinmentCotroller;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\loginController;
 use App\Http\Controllers\Admin\PatientController;
@@ -36,8 +37,12 @@ Route::resource('doctor',DoctorController::class);
 //--------------------------Appoinment Module------------------------
 Route::resource('appoinment',AppoinmentCotroller::class);
 
-//--------------------------Appoinment Module------------------------
+//--------------------------Patint Module------------------------
 Route::resource('patient',PatientController::class);
+
+
+//--------------------------Patint Module------------------------
+Route::resource('department',DepartmentController::class);
 
 });
 

@@ -33,8 +33,9 @@ class StoreRequest extends FormRequest
             'gender' => 'required',
             'description' => 'required',
             'image' => 'required',
-            'shift' => 'required',
-            'time' => 'required',
+            'shift' => 'required|in:evening,morning',
+            'start_time' => 'required|date_format:H:i:A',
+            'end_time' => 'required|date_format:H:i|after:start_time',
         ];
     }
 }

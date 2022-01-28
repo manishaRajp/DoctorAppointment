@@ -81,24 +81,30 @@
                             </br>
                         </div>
                     </div>
-                    <div>
-                        {{ Form::label('Gender') }}
-                        <div class="form-check form-check-inline">
-                            {{ Form::radio('gender', '1', ['class' => 'form-check-input']) }} <label
-                                class="form-check-label ml-2" for="inlineRadio1">Male</label> </div>
-                        <div class="form-check form-check-inline">
-                            {{ Form::radio('gender', '2', ['class' => 'form-check-input']) }} <label
-                                class="form-check-label ml-2" for="inlineRadio2">Female</label> </div></br></br>
-                    </div>
                     <div class="row">
                         <div class="col-md">
-                            {{ Form::label('Shift') }}
-                            {{ Form::text('shift', null, ['placeholder' => 'Enter Shift', 'class' => 'form-control']) }}
-                            @error('shift')
-                                <span class="text-danger" id="shiftError">{{ $message }}</span>
-                            @enderror
-                            </br>
+
+                            {{ Form::label('Gender') }}
+                            <div class="form-check form-check-inline">
+                                {{ Form::radio('gender', '1', ['class' => 'form-check-input']) }} <label
+                                    class="form-check-label ml-2" for="inlineRadio1">Male</label> </div>
+                            <div class="form-check form-check-inline">
+                                {{ Form::radio('gender', '2', ['class' => 'form-check-input']) }} <label
+                                    class="form-check-label ml-2" for="inlineRadio2">Female</label> </div>
                         </div>
+                        <div class="col-md">
+
+                            {{ Form::label('Shift') }}
+                            <div class="form-check form-check-inline">
+                                {{ Form::checkbox('shift', '1', ['class' => 'form-check-input']) }} <label
+                                    class="form-check-label ml-2" for="inlineRadio1">Morning</label> </div>
+                            <div class="form-check form-check-inline">
+                                {{ Form::checkbox('shift', '2', ['class' => 'form-check-input']) }} <label
+                                    class="form-check-label ml-2" for="inlineRadio2">Evening</label></div></br></br>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-md">
                             {{ Form::label('Start Time') }}
                             {{ Form::time('start_time', null, ['rows' => '3', 'class' => 'form-control']) }}
