@@ -2,14 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class DoctorDataTable extends DataTable
+class PatientDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,16 +22,16 @@ class DoctorDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'doctor.action');
+            ->addColumn('action', 'patient.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Doctor $model
+     * @param \App\Models\Patient $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Doctor $model)
+    public function query(User $model)
     {
         return $model->newQuery();
     }
@@ -43,7 +44,7 @@ class DoctorDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('doctor-table')
+                    ->setTableId('patient-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -68,13 +69,9 @@ class DoctorDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
-            Column::make('phone_number'),
             Column::make('address'),
-            Column::make('department'),
-            Column::make('gender'),
-            Column::make('shift'),
-            Column::make('time'),
-           
+            Column::make('phone_number'),
+            Column::make('image'),
         ];
     }
 
@@ -85,6 +82,6 @@ class DoctorDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Doctor_' . date('YmdHis');
+        return 'Patient_' . date('YmdHis');
     }
 }

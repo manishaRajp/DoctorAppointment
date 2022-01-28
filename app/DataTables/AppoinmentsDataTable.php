@@ -2,14 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\Doctor;
+use App\Models\Appoinment;
+use App\Models\AppoinmentTime;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class DoctorDataTable extends DataTable
+class AppoinmentsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,16 +22,16 @@ class DoctorDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'doctor.action');
+            ->addColumn('action', 'appoinments.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Doctor $model
+     * @param \App\Models\Appoinment $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Doctor $model)
+    public function query(AppoinmentTime $model)
     {
         return $model->newQuery();
     }
@@ -43,7 +44,7 @@ class DoctorDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('doctor-table')
+                    ->setTableId('appoinments-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -65,16 +66,15 @@ class DoctorDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('phone_number'),
-            Column::make('address'),
-            Column::make('department'),
-            Column::make('gender'),
-            Column::make('shift'),
-            Column::make('time'),
-           
+            Column::make('add your columns'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
         ];
     }
 
@@ -85,6 +85,6 @@ class DoctorDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Doctor_' . date('YmdHis');
+        return 'Appoinments_' . date('YmdHis');
     }
 }

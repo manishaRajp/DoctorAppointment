@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AppoinmentCotroller;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\loginController;
+use App\Http\Controllers\Admin\PatientController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,5 +32,12 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
 //--------------------------Doctor Module------------------------
 Route::resource('doctor',DoctorController::class);
+
+//--------------------------Appoinment Module------------------------
+Route::resource('appoinment',AppoinmentCotroller::class);
+
+//--------------------------Appoinment Module------------------------
+Route::resource('patient',PatientController::class);
+
 });
 

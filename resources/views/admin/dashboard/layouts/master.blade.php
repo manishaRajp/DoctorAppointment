@@ -9,16 +9,15 @@
     <meta content="Admin Dashboard" name="description" />
     <meta content="ThemeDesign" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}">
-
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('admin/assets/css/icons.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet" type="text/css">
-
+    @stack('css')
 </head>
-
 
 <body class="fixed-left">
     <!-- Loader -->
@@ -61,6 +60,8 @@
 
         <!-- App js -->
         <script src="{{ asset('admin/assets/js/app.js') }}"></script>
+
+        @stack('scripts')
 </body>
 @include('admin.dashboard.layouts.footer')
 

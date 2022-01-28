@@ -10,7 +10,7 @@
               <div class="topbar-left	d-none d-lg-block">
                   <div class="text-center">
 
-                      <a href="{{ route('admin.dasboard')}}" class="logo"><img src="assets/images/logo3.png" height="20"
+                      <a href="{{ route('admin.dasboard')}}" class="logo"><img src="{{ asset('admin/assets/images/logo.png')}}" height="20"
                               alt="logo"></a>
                   </div>
               </div>
@@ -41,7 +41,7 @@
                               <div class="slimscroll" style="max-height: 230px;">
                                   <!-- item-->
                                   <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <div class="notify-icon"><img src="assets/images/users/user-2.jpg"
+                                      <div class="notify-icon"><img src="{{ asset('admin/assets/images/users/user-1.jpg')}}"
                                               alt="user-img" class="img-fluid rounded-circle" /> </div>
                                       <p class="notify-details"><b>Charles M. Jones</b><span
                                               class="text-muted">Dummy text of the printing and typesetting
@@ -152,7 +152,7 @@
                       <li class="list-inline-item dropdown notification-list">
                           <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
                               href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                              <img src="assets/images/users/user-1.jpg" alt="user" class="rounded-circle">
+                              <img src="{{ asset('admin/assets/images/users/user-1.jpg')}}" alt="user" class="rounded-circle">
                           </a>
                           <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
                               <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i>
@@ -190,7 +190,6 @@
 
 
           <!-- content -->
-          {{-- </div> 
-    </div> --}}
+       
 
           <!-- End Right content here -->

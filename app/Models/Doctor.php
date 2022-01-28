@@ -16,8 +16,10 @@ class Doctor extends Model
         'phone_number',
         'address',
         'department',
-        'education',
         'gender',
         'description',
+        'image',
+        'shift',
+        'time',
     ];
 }

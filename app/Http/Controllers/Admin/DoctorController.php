@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\DoctorDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Doctor\StoreRequest;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +16,9 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DoctorDataTable $dataTable)
     {
-        return view('admin.dashboard.doctor.index');
+        return $dataTable->render('admin.dashboard.doctor.index');
     }
 
     /**
@@ -35,20 +37,23 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $newUser = Doctor::updateOrCreate([
-            'id'   => Auth::user()->id,
+            'email' => $request->get('email'),
         ], [
             'name'     => $request->get('name'),
             'email' => $request->get('email'),
-            'password'    => $request->get("password"),
             'phone_number'   => $request->get('phone_number'),
-            'department'       => $request->get('department'),
-            'address'   => $request->get('address'),
-            'education'    => $request->get('education'),
-            'description'    => $request->get('description'),
+            'password'    => $request->get("password"),
             'gender'    => $request->get('gender'),
+            'department'       => $request->get('department'),
+            'description'    => $request->get('description'),
+            'address'   => $request->get('address'),
+            'shift'   => $request->get('shift'),
+            'start_time'   => $request->get('start_time'),
+            'end_time'   => $request->get('end_time'),
+            'image'   => $request->get('image'),
         ]);
         return redirect()->route('admin.doctor.index');
     }
