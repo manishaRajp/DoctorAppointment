@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\PatientDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Patient\StoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class PatientController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $newUser = User::updateOrCreate([
             'email' => $request->get('email'),

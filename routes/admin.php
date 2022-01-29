@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AppoinmentCotroller;
+use App\Http\Controllers\Admin\DashboarController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\loginController;
@@ -25,9 +26,12 @@ Route::group(['namespace' => 'Auth'], function () {
 
 //---------------------------Admin Dashboard--------------------------
 Route::group(['middleware' => 'auth:admin'], function () {
-    Route::get('/dasboard', function () {
-        return view('admin.dashboard.index');
-    })->name('dasboard');
+
+    Route::get('dasboard', [DashboarController::class, 'department'])->name('dasboard');
+    // Route::get('/dasboard', function () {
+    //     return view('admin.dashboard.index');
+    // })->name('dasboard');
+
 //---------------------------Admin Profile-----------------------
 
 
@@ -43,6 +47,9 @@ Route::resource('patient',PatientController::class);
 
 //--------------------------Patint Module------------------------
 Route::resource('department',DepartmentController::class);
+
+
+//--------------------------Patint Module------------------------
 
 });
 

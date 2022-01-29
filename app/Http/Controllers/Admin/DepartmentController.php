@@ -18,14 +18,10 @@ class DepartmentController extends Controller
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
-        $department = Department::first();
+        $department = Department::pluck('department','id')->toArray();
         return view('admin.dashboard.department.data',compact('department'));
     }
 
@@ -37,9 +33,14 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        dd(546564);
-        $departmant = new  Department;
-        
+        $id = $request->input('id');
+        $department = Department::findorfail($id);
+        dd($department);
+        foreach ($department as $datas) {
+            $datas->departement = $request->input('departement');
+            $datas->save();  
+        }
+        return redirect()->route('admin.dashboar');
     }
 
     /**

@@ -34,6 +34,15 @@
                         <li><a href="{{ route('admin.doctor.create') }}">Create</a></li>
                     </ul>
                 </li>
+                  <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-bed"></i><span>
+                            Patient </span> <span class="menu-arrow float-right"><i
+                                class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('admin.patient.index') }}">View</a></li>
+                        <li><a href="{{ route('admin.patient.create') }}">Create</a></li>
+                    </ul>
+                </li>
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-alarm-plus"></i><span>
                             Appoinment </span> <span class="menu-arrow float-right"><i
@@ -44,15 +53,7 @@
                     </ul>
 
                 </li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-bed"></i><span>
-                            Patient </span> <span class="menu-arrow float-right"><i
-                                class="mdi mdi-chevron-right"></i></span></a>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('admin.patient.index') }}">View</a></li>
-                        <li><a href="{{ route('admin.patient.create') }}">Create</a></li>
-                    </ul>
-                </li>
+              
                 <li><a href="{{ route('admin.department.create') }}">Department</a></li>
             </ul>
         </div>

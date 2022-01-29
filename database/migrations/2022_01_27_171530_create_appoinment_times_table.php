@@ -17,6 +17,8 @@ class CreateAppoinmentTimesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('date')->nullable();
             $table->string('shift')->nullable();
             $table->string('time')->nullable();

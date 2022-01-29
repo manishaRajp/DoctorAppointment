@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\DoctorDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Doctor\StoreRequest;
+use App\Models\Department;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,15 +29,11 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('admin.dashboard.doctor.add');
+        $dept = Department::pluck('department','id')->toArray();
+        return view('admin.dashboard.doctor.add',compact('dept'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StoreRequest $request)
     {
         $newUser = Doctor::updateOrCreate([
@@ -58,38 +55,35 @@ class DoctorController extends Controller
         return redirect()->route('admin.doctor.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
-        //
+        $doctorEdit = Doctor::find($id);
+        return view('admin.dashboard.doctor.edit', compact('doctorEdit'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
-        //
+        $doctor = Doctor::find($request->id);
+        $doctor->name = $request->name;
+        $doctor->email = $request->email;
+        $doctor->phone_number = $request->phone_number;
+        $doctor->address = $request->address;
+        $doctor->gender = $request->gender;
+        $doctor->department = $request->department;
+        $doctor->description = $request->description;
+        $doctor->shift = $request->shift;
+        $doctor->start_time = $request->start_time;
+        $doctor->end_time = $request->end_time;
+        $doctor->save();
+        return response()->json();
     }
 
     /**

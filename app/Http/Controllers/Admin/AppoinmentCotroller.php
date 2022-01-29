@@ -4,22 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\AppoinmentsDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\AppoinmentTime;
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AppoinmentCotroller extends Controller
 {
-   
+
     public function index(AppoinmentsDataTable $dataTable)
     {
         return $dataTable->render('admin.dashboard.appoinment.index');
     }
 
-  
+
     public function create()
     {
-        $doctor = Doctor::pluck('name','id')->toArray();
-        return view('admin.dashboard.appoinment.add',compact('doctor'));
+        $doctor = Doctor::pluck('name', 'id')->toArray();
+        $patient = User::pluck('name', 'id')->toArray();
+        return view('admin.dashboard.appoinment.add', compact('doctor', 'patient'));
     }
 
     /**
@@ -30,7 +33,17 @@ class AppoinmentCotroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'doctor_id' => 'required',
+            'user_id'=> 'required',
+            'date' => 'required',
+            'shift' => 'required',
+            'time' => 'required',
+        ]);
+        AppoinmentTime::create($request->all());
+        return json_encode(array(
+            "statusCode" => 200
+        ));
     }
 
     /**

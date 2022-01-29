@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Doctor;
+namespace App\Http\Requests\Patient;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,17 +25,13 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:doctors',
+            'email' => 'required|email|unique:users',
             'password' => 'required',
-            'phone_number' => 'required|unique:doctors',
             'address' => 'required',
-            'department' => 'required',
-            'gender' => 'required|in:male,female',
-            'description' => 'required',
+            'phone_number' => 'required|unique:users',
             'image' => 'required',
-            'shift' => 'required|in:evening,morning',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'gender' => 'required|in:male,female',
+            'bio' => 'required',
         ];
     }
 }

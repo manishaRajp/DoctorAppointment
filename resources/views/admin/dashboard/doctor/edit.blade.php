@@ -26,12 +26,12 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Doctor</h4>
                     <p></p>
-                    {{ Form::open(['route' => 'admin.doctor.store', 'id' => 'doctorForm', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+                    {{ Form::open(['id' => 'updateForm', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                     @csrf
                     <div class="row">
                         <div class="col-md">
                             {{ Form::label('Name') }}
-                            {{ Form::text('name', null, ['placeholder' => 'Enter Name', 'class' => 'form-control']) }}
+                            {{ Form::text('name', $doctorEdit->name, ['class' => 'form-control']) }}
                             @error('name')
                                 <span class="text-danger" id="nameError">{{ $message }}</span>
                             @enderror
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md">
                             {{ Form::label('Email') }}
-                            {{ Form::email('email', null, ['placeholder' => 'Enter Email', 'class' => 'form-control']) }}
+                            {{ Form::text('name', $doctorEdit->email, ['class' => 'form-control']) }}
                             @error('email')
                                 <span class="text-danger" id="emailError">{{ $message }}</span>
                             @enderror
@@ -48,39 +48,24 @@
                     </div>
                     <div class="row">
                         <div class="col-md">
-                            {{ Form::label('Password') }}
-                            {{ Form::password('password', ['placeholder' => 'Enter Password', 'class' => 'form-control']) }}
-                            @error('password')
-                                <span class="text-danger" id="passwordError">{{ $message }}</span>
-                            @enderror
-                            </br>
-                        </div>
-                        <div class="col-md">
                             {{ Form::label('Mobile') }}
-                            {{ Form::number('phone_number', null, ['placeholder' => 'Enter Mobile', 'class' => 'form-control']) }}
+                            {{ Form::number('phone_number', $doctorEdit->phone_number, ['placeholder' => 'Enter Mobile', 'class' => 'form-control']) }}
                             @error('phone_number')
                                 <span class="text-danger" id="phone_numberError">{{ $message }}</span>
                             @enderror
                             </br>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md">
                             {{ Form::label('Address') }}
-                            {{ Form::text('address', null, ['placeholder' => 'Enter Address', 'class' => 'form-control']) }}
+                            {{ Form::text('address', $doctorEdit->address, ['placeholder' => 'Enter Address', 'class' => 'form-control']) }}
                             @error('address')
                                 <span class="text-danger" id="addressError">{{ $message }}</span>
                             @enderror
                             </br>
                         </div>
-                        <div class="col-md">
-                            {{ Form::label('Department', 'Department') }}
-                            {{ Form::select('department', $dept, null, ['class' => 'form-control', 'id' => 'department']) }}
-                            @error('department')
-                                <span class="text-danger" id="departmentError">{{ $message }}</span>
-                            @enderror
-                            </br>
-                        </div>
+                    </div>
+                    <div class="row">
+
                     </div>
                     <div class="row">
                         <div class="col-md">
@@ -93,7 +78,6 @@
                                     class="form-check-label ml-2" for="inlineRadio2">Female</label> </div>
                         </div>
                         <div class="col-md">
-
                             {{ Form::label('Shift') }}
                             <div class="form-check form-check-inline">
                                 {{ Form::radio('shift', 'evening', ['class' => 'form-check-input']) }} <label
@@ -107,7 +91,7 @@
                     <div class="row">
                         <div class="col-md">
                             {{ Form::label('Start Time') }}
-                            {{ Form::time('start_time', null, ['rows' => '3', 'class' => 'form-control']) }}
+                            {{ Form::time('start_time', $doctorEdit->start_time, ['rows' => '3', 'class' => 'form-control']) }}
                             @error('start_time')
                                 <span class="text-danger" id="start_timeError">{{ $message }}</span>
                             @enderror
@@ -115,7 +99,7 @@
                         </div>
                         <div class="col-md">
                             {{ Form::label('End Time') }}
-                            {{ Form::time('end_time', null, ['rows' => '3', 'class' => 'form-control']) }}
+                            {{ Form::time('end_time', $doctorEdit->end_time, ['rows' => '3', 'class' => 'form-control']) }}
                             @error('end_time')
                                 <span class="text-danger" id="end_timeError">{{ $message }}</span>
                             @enderror
@@ -125,17 +109,9 @@
                     <div class="row">
                         <div class="col-md">
                             {{ Form::label('Description') }}
-                            {{ Form::textarea('description', null, ['rows' => '3', 'class' => 'form-control']) }}
+                            {{ Form::textarea('description', $doctorEdit->description, ['rows' => '3', 'class' => 'form-control']) }}
                             @error('description')
                                 <span class="text-danger" id="descriptionError">{{ $message }}</span>
-                            @enderror
-                            </br>
-                        </div>
-                        <div class="col-md">
-                            {{ Form::label('Profile Image') }}
-                            {{ Form::file('image', ['class' => 'form-control']) }}
-                            @error('image')
-                                <span class="text-danger" id="imageError">{{ $message }}</span>
                             @enderror
                             </br>
                         </div>
@@ -157,68 +133,50 @@
     </div>
     </div>
 @endsection
-
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
     <script>
-        $("#doctorForm").validate({
+        $(document).ready(function() {
+            $('#submit-aapoinmet').click(function(e) {
+                e.preventDefault();
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var address = $('#address').val();
+                var address = $('#address').val();
+                var shift = $('#shift').val();
+                var time = $('#time').val();
+                if (doctor_id != "" && user_id != "" && date != "" && shift != "") {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "/admin/appoinment",
+                        type: "POST",
+                        data: {
+                            doctor_id: doctor_id,
+                            user_id: user_id,
+                            date: date,
+                            shift: shift,
+                            time: time,
+                        },
+                        cache: false,
+                        success: function(responseOutput) {
+                            console.log(responseOutput);
+                            var responseOutput = JSON.parse(responseOutput);
+                            if (responseOutput.statusCode == 200) {
+                                window.location = "/admin/appoinment";
+                            } else if (responseOutput.statusCode == 201) {
+                                alert("Error occured !");
+                            }
+                        }
+                    });
+                } else {
+                    alert('Please fill all the field !');
+                }
 
-            rules: {
-                name: {
-                    required: true,
-                    maxlength: 225,
-                    letteronly: true
-                },
-                email: {
-                    required: true,
-                    email: true,
-                    maxlength: 50
-                },
-                password: {
-                    required: true,
 
-
-                },
-                phone_number: {
-                    required: true,
-                    number: true,
-                    minlength: 10
-                },
-                address: {
-                    required: true,
-                },
-                image: {
-                    required: true,
-                },
-                description: {
-                    required: true,
-                },
-                gender: {
-                    required: true,
-                },
-                department: {
-                    required: true,
-                },
-                shift: {
-                    required: true,
-                },
-                start_time: {
-                    required: true,
-                },
-                end_time: {
-                    required: true,
-                },
-            },
-
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass("is-invalid").removeClass("is-valid");
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).addClass("is-valid").removeClass("is-invalid");
-            },
+            });
         });
     </script>
+
 
 @endpush

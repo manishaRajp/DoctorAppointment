@@ -21,7 +21,25 @@ class DoctorDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'doctor.action');
+            ->editColumn('image', function ($data) {
+                return '<img src="' . asset('storage/CollegeLogo/' . $data->logo) . '" class="img-thumbnail"
+                   width="50%"></img>';
+            })
+            ->addColumn('action', function ($data) {
+                return
+                    '
+                    <br><a href="' . route("admin.doctor.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
+                      <form action="' . route("admin.doctor.destroy", $data->id) . '" method="POST">
+                    ' . csrf_field() . '
+                    ' . method_field("DELETE") . '
+                        <button type="submit" class="btn btn-danger"
+                        onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                        ><i class="fa fa-trash"></i>
+                  </form>
+                    ';
+            })
+            ->rawColumns(['image', 'action'])
+            ->addIndexColumn();
     }
 
     /**
@@ -43,18 +61,18 @@ class DoctorDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('doctor-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('doctor-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Blfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            );
     }
 
     /**
@@ -65,16 +83,19 @@ class DoctorDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('phone_number'),
-            Column::make('address'),
-            Column::make('department'),
-            Column::make('gender'),
-            Column::make('shift'),
-            Column::make('time'),
-           
+            Column::make('id')->data('DT_RowIndex')->orderable(false)->title('Sr.no'),
+            Column::make('name')->orderable(false)->title('Name'),
+            Column::make('email')->orderable(false)->title('Email'),
+            Column::make('phone_number')->orderable(false)->title('Contact'),
+            Column::make('address')->orderable(false)->title('Address'),
+            Column::make('department')->orderable(false)->title('Department'),
+            Column::make('gender')->orderable(false)->title('Gender'),
+            Column::make('shift')->orderable(false)->title('Shift'),
+            Column::make('start_time')->orderable(false)->title('Start At'),
+            Column::make('end_time')->orderable(false)->title('End AT'),
+            Column::make('image')->orderable(false)->title('Image'),
+            Column::computed('action')->title('Action'),
+
         ];
     }
 

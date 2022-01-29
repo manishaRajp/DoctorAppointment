@@ -20,6 +20,7 @@ class Doctor extends Model
         'description',
         'image',
         'shift',
-        'time',
+        'start_time',
+        'end_time',
     ];
 }

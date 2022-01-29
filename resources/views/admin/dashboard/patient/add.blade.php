@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-md">
                             {{ Form::label('Mobile') }}
-                            {{ Form::text('phone_number', null, ['rows' => '3', 'class' => 'form-control']) }}
+                            {{ Form::number('phone_number', null, ['rows' => '3', 'class' => 'form-control']) }}
                             @error('phone_number')
                                 <span class="text-danger" id="phone_numberError">{{ $message }}</span>
                             @enderror
@@ -70,9 +70,9 @@
                         <div class="row">
                             <div class="col-md">
                                 {{ Form::label('Description') }}
-                                {{ Form::textarea('description', null, ['rows' => '3', 'class' => 'form-control']) }}
-                                @error('description')
-                                    <span class="text-danger" id="descriptionError">{{ $message }}</span>
+                                {{ Form::textarea('bio', null, ['rows' => '3', 'class' => 'form-control']) }}
+                                @error('bio')
+                                    <span class="text-danger" id="bioError">{{ $message }}</span>
                                 @enderror
                                 </br>
                             </div>
@@ -101,10 +101,10 @@
                             <div class="col-md">
                                 {{ Form::label('Gender') }}
                                 <div class="form-check form-check-inline">
-                                    {{ Form::radio('gender', '1', ['class' => 'form-check-input']) }} <label
+                                    {{ Form::radio('gender', 'male', ['class' => 'form-check-input']) }} <label
                                         class="form-check-label ml-2" for="inlineRadio1">Male</label> </div>
                                 <div class="form-check form-check-inline">
-                                    {{ Form::radio('gender', '2', ['class' => 'form-check-input']) }} <label
+                                    {{ Form::radio('gender', 'female', ['class' => 'form-check-input']) }} <label
                                         class="form-check-label ml-2" for="inlineRadio2">Female</label> </div></br></br>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
             rules: {
                 name: {
                     required: true,
-                    maxlength: 225,
+                    maxlength: 225
                 },
                 email: {
                     required: true,
@@ -158,7 +158,7 @@
                 image: {
                     required: true,
                 },
-                description: {
+                bio: {
                     required: true,
                 },
                 gender: {
