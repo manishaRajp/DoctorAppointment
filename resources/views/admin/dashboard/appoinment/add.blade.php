@@ -50,13 +50,13 @@
                             </br>
                         </div>
                         <div class="col-md">
-                            {{ Form::label('Shift') }}
-                            {{ Form::text('shift', null, ['rows' => '3', 'class' => 'form-control', 'id' => 'shift']) }}
-                            @error('shift')
-                                <span class="text-danger" id="shiftError">{{ $message }}</span>
-                            @enderror
-                            </br>
-                        </div>
+                        {{ Form::label('Shift') }}
+                        {{ Form::text('shift', null, ['rows' => '3', 'class' => 'form-control', 'id' => 'shift']) }}
+                        @error('shift')
+                        <span class="text-danger" id="shiftError">{{ $message }}</span>
+                        @enderror
+                        </br>
+                    </div>
                         <div class="col-md">
                             {{ Form::label('Time') }}
                             {{ Form::time('time', null, ['rows' => '3', 'class' => 'form-control', 'id' => 'time']) }}
@@ -89,6 +89,7 @@
         $(document).ready(function() {
             $('#submit-aapoinmet').click(function(e) {
                 e.preventDefault();
+                
                 var doctor_id = $('#doctor_id').val();
                 var user_id = $('#user_id').val();
                 var date = $('#date').val();

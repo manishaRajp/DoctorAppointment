@@ -9,7 +9,7 @@ class AppoinmentTime extends Model
 {
     use HasFactory;
 
-    protected $table = 'appoinment_times';
+    protected $table = 'appoinments';
     protected $fillable = [
         'doctor_id',
         'user_id',

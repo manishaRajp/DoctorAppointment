@@ -19,7 +19,7 @@
                 <li class="menu-title">Main</li>
 
                 <li>
-                    <a href="{{ route('admin.dasboard') }}" class="waves-effect">
+                    <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="dripicons-meter"></i>
                         <span> Dashboard <span class="badge badge-success badge-pill float-right"></span></span>
                     </a>

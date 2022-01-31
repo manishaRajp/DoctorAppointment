@@ -22,7 +22,7 @@ class DoctorDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->editColumn('image', function ($data) {
-                return '<img src="' . asset('storage/CollegeLogo/' . $data->logo) . '" class="img-thumbnail"
+                return '<img src="' . asset('storage/DoctorImage/' . $data->image) . '" class="img-thumbnail"
                    width="50%"></img>';
             })
             ->addColumn('action', function ($data) {
@@ -38,7 +38,10 @@ class DoctorDataTable extends DataTable
                   </form>
                     ';
             })
-            ->rawColumns(['image', 'action'])
+            ->editColumn('department', function ($data) {
+                return $data->department_id->department;
+            })
+            ->rawColumns(['image','action','department'])
             ->addIndexColumn();
     }
 

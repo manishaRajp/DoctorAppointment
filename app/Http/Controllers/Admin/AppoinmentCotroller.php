@@ -8,6 +8,7 @@ use App\Models\AppoinmentTime;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AppoinmentCotroller extends Controller
 {
@@ -25,14 +26,9 @@ class AppoinmentCotroller extends Controller
         return view('admin.dashboard.appoinment.add', compact('doctor', 'patient'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+
         $request->validate([
             'doctor_id' => 'required',
             'user_id'=> 'required',

@@ -10,7 +10,7 @@
               <div class="topbar-left	d-none d-lg-block">
                   <div class="text-center">
 
-                      <a href="{{ route('admin.dasboard')}}" class="logo"><img src="{{ asset('admin/assets/images/logo.png')}}" height="20"
+                      <a href="{{ route('admin.dashboard')}}" class="logo"><img src="{{ asset('admin/assets/images/logo.png')}}" height="20"
                               alt="logo"></a>
                   </div>
               </div>

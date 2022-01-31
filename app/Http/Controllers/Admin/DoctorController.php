@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -36,13 +37,14 @@ class DoctorController extends Controller
     
     public function store(StoreRequest $request)
     {
+        $images = uploadFile($request['image'], 'DoctorImage');
         $newUser = Doctor::updateOrCreate([
             'email' => $request->get('email'),
         ], [
             'name'     => $request->get('name'),
             'email' => $request->get('email'),
             'phone_number'   => $request->get('phone_number'),
-            'password'    => $request->get("password"),
+            'password'    => Hash::make($request->get("password")),
             'gender'    => $request->get('gender'),
             'department'       => $request->get('department'),
             'description'    => $request->get('description'),
@@ -50,7 +52,7 @@ class DoctorController extends Controller
             'shift'   => $request->get('shift'),
             'start_time'   => $request->get('start_time'),
             'end_time'   => $request->get('end_time'),
-            'image'   => $request->get('image'),
+            'image'   => $images,
         ]);
         return redirect()->route('admin.doctor.index');
     }

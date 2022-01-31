@@ -26,7 +26,6 @@
     </div>
 @endsection
 @push('scripts')
-    {{-- datatable --}}
         <script src="{{ asset('admin/assets/js/boostrap.js') }}"></script>
         <script src="{{ asset('admin/assets/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('admin/assets/js/dataTables.bootstrap4.min.js') }}"></script>

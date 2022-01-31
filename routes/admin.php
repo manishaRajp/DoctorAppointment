@@ -26,11 +26,8 @@ Route::group(['namespace' => 'Auth'], function () {
 
 //---------------------------Admin Dashboard--------------------------
 Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('dashboard', [DashboarController::class, 'department'])->name('dashboard');
 
-    Route::get('dasboard', [DashboarController::class, 'department'])->name('dasboard');
-    // Route::get('/dasboard', function () {
-    //     return view('admin.dashboard.index');
-    // })->name('dasboard');
 
 //---------------------------Admin Profile-----------------------
 

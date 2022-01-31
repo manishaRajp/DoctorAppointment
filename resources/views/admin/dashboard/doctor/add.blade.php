@@ -96,10 +96,10 @@
 
                             {{ Form::label('Shift') }}
                             <div class="form-check form-check-inline">
-                                {{ Form::radio('shift', 'evening', ['class' => 'form-check-input']) }} <label
+                                {{ Form::radio('shift', 'morning', ['class' => 'form-check-input']) }} <label
                                     class="form-check-label ml-2" for="inlineRadio1">Morning</label> </div>
                             <div class="form-check form-check-inline">
-                                {{ Form::radio('shift', 'morning', ['class' => 'form-check-input']) }} <label
+                                {{ Form::radio('shift', 'evening', ['class' => 'form-check-input']) }} <label
                                     class="form-check-label ml-2" for="inlineRadio2">Evening</label> </div>
                         </div>
                     </div>

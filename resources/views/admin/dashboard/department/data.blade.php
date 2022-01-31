@@ -18,8 +18,6 @@
             <h5 class="page-title">Add Doctor</h5>
         </div>
     </div>
-    {{-- @dd($department[1]) --}}
-    <!-- end row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="card m-b-30">

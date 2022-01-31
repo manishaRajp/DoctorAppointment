@@ -22,15 +22,14 @@ class CreateDoctorsTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->string('gender')->nullable();
-            $table->string('department')->nullable();
-            $table->string('image')->nullable();
+            $table->unsignedBigInteger('department');
+            $table->foreign('department')->references('id')->on('departments');
             $table->text('description')->nullable();
             $table->string('shift')->nullable()->comment('Morning Or Evening');
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();
             $table->boolean('status')->default(1)->comment('0 = inactive, 1 = active');
-            $table->softDeletes();
-            $table->rememberToken();
+            $table->softDeletes();  
             $table->timestamps();
         });
     }
