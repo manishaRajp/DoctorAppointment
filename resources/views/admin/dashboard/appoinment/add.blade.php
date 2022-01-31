@@ -26,17 +26,23 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Appoinment</h4>
                     <p></p>
-                    {{ Form::open(['route' => 'admin.doctor.store', 'id' => 'myform', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+                    {{ Form::open(['route' => 'admin.doctor.store', 'id' => 'appoinment-form', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                     @csrf
                     <div class="row">
                         <div class="col-md">
                             {{ Form::label('Doctor') }}
                             {{ Form::select('doctor_id', $doctor, null, ['class' => 'form-control', 'id' => 'doctor_id']) }}
+                              @error('shift')
+                                <span class="text-danger" id="shiftError">{{ $message }}</span>
+                            @enderror
                             </br>
                         </div>
                         <div class="col-md">
                             {{ Form::label('Patent') }}
-                            {{ Form::select('doctor_id', $patient, null, ['class' => 'form-control', 'id' => 'user_id']) }}
+                            {{ Form::select('user_id', $patient, null, ['class' => 'form-control', 'id' => 'user_id']) }}
+                              @error('shift')
+                                <span class="text-danger" id="shiftError">{{ $message }}</span>
+                            @enderror
                             </br>
                         </div>
                     </div>
@@ -49,14 +55,15 @@
                             @enderror
                             </br>
                         </div>
+
                         <div class="col-md">
-                        {{ Form::label('Shift') }}
-                        {{ Form::text('shift', null, ['rows' => '3', 'class' => 'form-control', 'id' => 'shift']) }}
-                        @error('shift')
-                        <span class="text-danger" id="shiftError">{{ $message }}</span>
-                        @enderror
-                        </br>
-                    </div>
+                            {{ Form::label('Shift', 'Shift') }}
+                            {{ Form::select('shift', ['1' => 'Morning', '2' => 'Evening'], 'S', ['class' => 'form-control', 'id' => 'shift']) }}
+                            @error('shift')
+                                <span class="text-danger" id="shiftError">{{ $message }}</span>
+                            @enderror
+                            </br>
+                        </div>
                         <div class="col-md">
                             {{ Form::label('Time') }}
                             {{ Form::time('time', null, ['rows' => '3', 'class' => 'form-control', 'id' => 'time']) }}
@@ -89,7 +96,6 @@
         $(document).ready(function() {
             $('#submit-aapoinmet').click(function(e) {
                 e.preventDefault();
-                
                 var doctor_id = $('#doctor_id').val();
                 var user_id = $('#user_id').val();
                 var date = $('#date').val();
@@ -126,6 +132,7 @@
 
 
             });
+
         });
     </script>
 

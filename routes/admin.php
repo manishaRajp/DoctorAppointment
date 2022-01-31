@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\loginController;
 use App\Http\Controllers\Admin\PatientController;
+use App\Http\Controllers\AppoinmentConfirm;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,7 +47,9 @@ Route::resource('patient',PatientController::class);
 Route::resource('department',DepartmentController::class);
 
 
-//--------------------------Patint Module------------------------
+//--------------------------Appoinment  Module------------------------
+Route::resource('appoinment',AppoinmentConfirm::class);
+
 
 });
 

@@ -36,10 +36,34 @@ class AppoinmentCotroller extends Controller
             'shift' => 'required',
             'time' => 'required',
         ]);
-        AppoinmentTime::create($request->all());
-        return json_encode(array(
-            "statusCode" => 200
-        ));
+
+        $shift = Doctor::where('id',$request['doctor_id'])->first();
+        $available = Doctor::where('id', $request['doctor_id'])->where('start_time','<=',$request->time)->where('end_time', '>=', $request->time)->first();
+        $error=0;
+        if($shift->shift!=$request->shift)
+        {
+            $error++;
+            return response()->json(['error'=>'Not available on This shift']);
+        }
+        if(!$available)
+        {
+            $error++;
+            return response()->json(['error' => 'Not available at that time']);
+        }
+
+        if($error==0)
+        {
+            AppoinmentTime::create([
+                'doctor_id'=>$request->doctor_id,
+                'user_id'=>$request->user_id,
+                'date'=>$request->date,
+                'time'=>$request->time
+            ]);
+            return json_encode(array(
+                "statusCode" => 200,
+            ));
+        }
+
     }
 
     /**

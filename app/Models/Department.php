@@ -10,6 +10,14 @@ class Department extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'department',
     ];
+
+
+    public function departments_id()
+    {
+        return $this->hasOne(Doctor::class, 'department','id');
+    }
+
 }

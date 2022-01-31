@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Appoinment;
 use App\Models\AppoinmentTime;
+use App\Models\Time;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -22,7 +23,23 @@ class AppoinmentsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'appoinments.action');
+            ->editColumn('status', function ($data) {
+            if ($data->status == 1) {
+                return '<a class="btn btn-primary btn-xs">Confirm</a>';
+            } else if ($data->status == 2) {
+                return '<a class="btn btn-danger btn-xs">Reject</a>';
+            } else {
+                return '<a class="btn btn-warning btn-xs">Pending</a>';
+            }
+            })
+            ->editColumn('doctor_id', function ($data) {
+                return $data->doctor->name;
+            })
+            ->editColumn('user_id', function ($data) {
+                return $data->user->name;
+            })
+            ->rawColumns(['status', 'doctor_id', 'user_id'])
+            ->addIndexColumn();
     }
 
     /**
@@ -33,7 +50,7 @@ class AppoinmentsDataTable extends DataTable
      */
     public function query(AppoinmentTime $model)
     {
-        return $model->newQuery();
+        return $model->with('doctor', 'user')->newQuery();
     }
 
     /**
@@ -44,18 +61,18 @@ class AppoinmentsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('appoinments-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('appoinments-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Blfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            );
     }
 
     /**
@@ -66,15 +83,12 @@ class AppoinmentsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('id')->data('DT_RowIndex')->orderable(false)->title('Sr.no'),
+            Column::make('doctor_id')->name('doctor.name')->title('Doctor'),
+            Column::make('user_id')->name('user.name')->title('Patient'),
+            Column::make('date'),
+            Column::make('time'),
+            Column::make('status'),
         ];
     }
 

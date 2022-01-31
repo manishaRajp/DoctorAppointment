@@ -27,8 +27,7 @@ class DoctorDataTable extends DataTable
             })
             ->addColumn('action', function ($data) {
                 return
-                    '
-                    <br><a href="' . route("admin.doctor.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
+                    '<br><a href="' . route("admin.doctor.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
                       <form action="' . route("admin.doctor.destroy", $data->id) . '" method="POST">
                     ' . csrf_field() . '
                     ' . method_field("DELETE") . '
@@ -39,7 +38,7 @@ class DoctorDataTable extends DataTable
                     ';
             })
             ->editColumn('department', function ($data) {
-                return $data->department_id->department;
+                return $data->departments_id->department;
             })
             ->rawColumns(['image','action','department'])
             ->addIndexColumn();
@@ -53,7 +52,7 @@ class DoctorDataTable extends DataTable
      */
     public function query(Doctor $model)
     {
-        return $model->newQuery();
+        return $model->with('departments_id')->newQuery();
     }
 
     /**
@@ -91,7 +90,7 @@ class DoctorDataTable extends DataTable
             Column::make('email')->orderable(false)->title('Email'),
             Column::make('phone_number')->orderable(false)->title('Contact'),
             Column::make('address')->orderable(false)->title('Address'),
-            Column::make('department')->orderable(false)->title('Department'),
+            Column::make('department')->orderable(false)->title('Department')->name('departments_id.department'),
             Column::make('gender')->orderable(false)->title('Gender'),
             Column::make('shift')->orderable(false)->title('Shift'),
             Column::make('start_time')->orderable(false)->title('Start At'),

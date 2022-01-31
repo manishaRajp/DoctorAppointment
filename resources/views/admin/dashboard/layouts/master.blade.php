@@ -32,6 +32,9 @@
 
         @include('admin.dashboard.layouts.menu')
         @include('admin.dashboard.layouts.header')
+        <br>
+        <br>
+        @include('flash-message')
         @yield('content')
         <!-- jQuery  -->
         <script src="{{ asset('admin/assets/js/jquery.min.js') }}"></script>

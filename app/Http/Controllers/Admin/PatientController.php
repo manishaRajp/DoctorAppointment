@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Patient\StoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
@@ -25,17 +26,18 @@ class PatientController extends Controller
 
     public function store(StoreRequest $request)
     {
+        $images = uploadFile($request['image'], 'PatientImage');
         $newUser = User::updateOrCreate([
             'email' => $request->get('email'),
         ], [
             'name'     => $request->get('name'),
             'email' => $request->get('email'),
             'phone_number'   => $request->get('phone_number'),
-            'password'    => $request->get("password"),
+            'password'    => Hash::make($request->get("password")),
             'gender'    => $request->get('gender'),
             'bio'    => $request->get('bio'),
             'address'   => $request->get('address'),
-            'image'   => $request->get('image'),
+            'image'   => $images,
         ]);
         return redirect()->route('admin.patient.index');
     }

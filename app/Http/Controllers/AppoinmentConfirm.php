@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Department;
+use App\Models\AppoinmentTime;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
+class AppoinmentConfirm extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +14,19 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        
+       $appoimentData = AppoinmentTime::get();
+    //    dd($appoimentData);
+       return view('admin.dashboard.appoinment.count',compact('appoimentData'));
     }
 
-   
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        $department = Department::pluck('department','id')->toArray();
-        return view('admin.dashboard.department.data',compact('department'));
+        //
     }
 
     /**
@@ -33,13 +37,7 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $id = $request->input('id');
-        $department = Department::findorfail($id);
-        foreach ($department as $datas) {
-            $datas->departement = $request->input('departement');
-            $datas->save();  
-        }
-        return redirect()->route('admin.dashboar');
+        //
     }
 
     /**

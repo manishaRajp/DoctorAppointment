@@ -19,4 +19,14 @@ class AppoinmentTime extends Model
         'status',
 
     ];
+
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

@@ -53,8 +53,8 @@
                     </ul>
 
                 </li>
-              
                 <li><a href="{{ route('admin.department.create') }}">Department</a></li>
+                <li><a href="{{ route('admin.appoinment.index') }}">Todays Appoinment</a></li>
             </ul>
         </div>
         <div class="clearfix"></div>

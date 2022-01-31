@@ -6,7 +6,7 @@
         }
 
     </style>
-    {{-- @dd($dept) --}}
+    
     <div class="row">
         <div class="col-sm-12">
             <div class="float-right page-breadcrumb">
@@ -93,14 +93,12 @@
                                     class="form-check-label ml-2" for="inlineRadio2">Female</label> </div>
                         </div>
                         <div class="col-md">
-
-                            {{ Form::label('Shift') }}
-                            <div class="form-check form-check-inline">
-                                {{ Form::radio('shift', 'morning', ['class' => 'form-check-input']) }} <label
-                                    class="form-check-label ml-2" for="inlineRadio1">Morning</label> </div>
-                            <div class="form-check form-check-inline">
-                                {{ Form::radio('shift', 'evening', ['class' => 'form-check-input']) }} <label
-                                    class="form-check-label ml-2" for="inlineRadio2">Evening</label> </div>
+                            {{ Form::label('Shift', 'Shift') }}
+                            {{ Form::select('shift', ['1' => 'Morning', '2' => 'Evening'], 'S', ['class' => 'form-control', 'id' => 'shift']) }}
+                            @error('shift')
+                                <span class="text-danger" id="shiftError">{{ $message }}</span>
+                            @enderror
+                            </br>
                         </div>
                     </div>
                     </br>

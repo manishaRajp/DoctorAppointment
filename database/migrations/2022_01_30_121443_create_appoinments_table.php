@@ -21,7 +21,7 @@ class CreateAppoinmentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('date')->nullable();
             $table->string('time')->nullable();
-            $table->boolean('status')->default(1)->comment('0 = inactive, 1 = active');
+            $table->boolean('status')->default(1)->comment('0 = Confirm, 1 = Reject 2=Pending');
             $table->softDeletes();
             $table->timestamps();
         });

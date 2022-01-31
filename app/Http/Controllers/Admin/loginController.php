@@ -36,6 +36,7 @@ class loginController extends Controller
     {
         $this->guard('admin')->logout();
         return redirect()->route('admin.login');
+    
     }
 
     protected function guard()

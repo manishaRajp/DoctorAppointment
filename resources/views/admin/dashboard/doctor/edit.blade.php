@@ -6,7 +6,7 @@
         }
 
     </style>
-    {{-- @dd($dept) --}}
+
     <div class="row">
         <div class="col-sm-12">
             <div class="float-right page-breadcrumb">
@@ -25,13 +25,14 @@
             <div class="card m-b-30">
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Doctor</h4>
-                    <p></p>
-                    {{ Form::open(['id' => 'updateForm', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+                    {{ Form::model($doctorEdit, ['route' => ['admin.doctor.store'], 'method' => 'post',  'enctype' => 'multipart/form-data', 'novalidate' => true]) }}
                     @csrf
+                    {{-- {{ Form::text($doctorEdit'id) }} --}}
+                    {{ Form::hidden('id', null, ['class' => 'form-control']) }}
                     <div class="row">
                         <div class="col-md">
                             {{ Form::label('Name') }}
-                            {{ Form::text('name', $doctorEdit->name, ['class' => 'form-control']) }}
+                            {{ Form::text('name', null, ['class' => 'form-control']) }}
                             @error('name')
                                 <span class="text-danger" id="nameError">{{ $message }}</span>
                             @enderror
@@ -39,7 +40,7 @@
                         </div>
                         <div class="col-md">
                             {{ Form::label('Email') }}
-                            {{ Form::text('name', $doctorEdit->email, ['class' => 'form-control']) }}
+                            {{ Form::text('email', null, ['class' => 'form-control']) }}
                             @error('email')
                                 <span class="text-danger" id="emailError">{{ $message }}</span>
                             @enderror
@@ -49,7 +50,7 @@
                     <div class="row">
                         <div class="col-md">
                             {{ Form::label('Mobile') }}
-                            {{ Form::number('phone_number', $doctorEdit->phone_number, ['placeholder' => 'Enter Mobile', 'class' => 'form-control']) }}
+                            {{ Form::number('phone_number', null, ['placeholder' => 'Enter Mobile', 'class' => 'form-control']) }}
                             @error('phone_number')
                                 <span class="text-danger" id="phone_numberError">{{ $message }}</span>
                             @enderror
@@ -77,18 +78,18 @@
                                 {{ Form::radio('gender', 'female', ['class' => 'form-check-input']) }} <label
                                     class="form-check-label ml-2" for="inlineRadio2">Female</label> </div>
                         </div>
-                        <div class="col-md">
-                            {{ Form::label('Shift') }}
-                            <div class="form-check form-check-inline">
-                                {{ Form::radio('shift', 'evening', ['class' => 'form-check-input']) }} <label
-                                    class="form-check-label ml-2" for="inlineRadio1">Morning</label> </div>
-                            <div class="form-check form-check-inline">
-                                {{ Form::radio('shift', 'morning', ['class' => 'form-check-input']) }} <label
-                                    class="form-check-label ml-2" for="inlineRadio2">Evening</label> </div>
-                        </div>
                     </div>
                     </br>
+
                     <div class="row">
+                            <div class="col-md">
+                            {{ Form::label('Shift', 'Shift') }}
+                            {{ Form::select('shift', ['1' => 'Morning', '2' => 'Evening'], 'S', ['class' => 'form-control', 'id' => 'shift']) }}
+                            @error('shift')
+                                <span class="text-danger" id="shiftError">{{ $message }}</span>
+                            @enderror
+                            </br>
+                        </div>
                         <div class="col-md">
                             {{ Form::label('Start Time') }}
                             {{ Form::time('start_time', $doctorEdit->start_time, ['rows' => '3', 'class' => 'form-control']) }}
@@ -136,8 +137,9 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#submit-aapoinmet').click(function(e) {
+            $('#').click(function(e) {
                 e.preventDefault();
+                alert(2312);
                 var name = $('#name').val();
                 var email = $('#email').val();
                 var address = $('#address').val();

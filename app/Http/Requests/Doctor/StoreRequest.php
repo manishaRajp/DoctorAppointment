@@ -23,17 +23,18 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
+        $id = request()->id;
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:doctors',
+            'email' => 'required|email|unique:doctors,id,'.$id,
             'password' => 'required',
-            'phone_number' => 'required|unique:doctors',
+            'phone_number' => 'required|unique:doctors,id,'.$id,
             'address' => 'required',
             'department' => 'required',
             'gender' => 'required|in:male,female',
             'description' => 'required',
             'image' => 'required',
-            'shift' => 'required|in:evening,morning',
+            'shift' => 'required|in:1,2',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
         ];

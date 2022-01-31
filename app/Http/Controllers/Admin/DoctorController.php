@@ -31,6 +31,7 @@ class DoctorController extends Controller
     public function create()
     {
         $dept = Department::pluck('department','id')->toArray();
+        
         return view('admin.dashboard.doctor.add',compact('dept'));
     }
 
@@ -39,7 +40,7 @@ class DoctorController extends Controller
     {
         $images = uploadFile($request['image'], 'DoctorImage');
         $newUser = Doctor::updateOrCreate([
-            'email' => $request->get('email'),
+            'id' => $request->id,
         ], [
             'name'     => $request->get('name'),
             'email' => $request->get('email'),
@@ -54,6 +55,7 @@ class DoctorController extends Controller
             'end_time'   => $request->get('end_time'),
             'image'   => $images,
         ]);
+        $request->session()->flash('success', 'Recoreds Are Added ');
         return redirect()->route('admin.doctor.index');
     }
 
@@ -73,19 +75,7 @@ class DoctorController extends Controller
     
     public function update(Request $request, $id)
     {
-        $doctor = Doctor::find($request->id);
-        $doctor->name = $request->name;
-        $doctor->email = $request->email;
-        $doctor->phone_number = $request->phone_number;
-        $doctor->address = $request->address;
-        $doctor->gender = $request->gender;
-        $doctor->department = $request->department;
-        $doctor->description = $request->description;
-        $doctor->shift = $request->shift;
-        $doctor->start_time = $request->start_time;
-        $doctor->end_time = $request->end_time;
-        $doctor->save();
-        return response()->json();
+      
     }
 
     /**
@@ -94,8 +84,11 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $collegeDelete = Doctor::find($id);
+        $collegeDelete->delete();
+        $request->session()->flash('success', 'Recoreds Are Deleted ');
+        return redirect()->route('admin.doctor.index');
     }
 }
