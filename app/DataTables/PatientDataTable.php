@@ -22,7 +22,18 @@ class PatientDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'patient.action');
+            ->editColumn('image', function ($data) {
+                return '<img src="' . asset('storage/PatientImage/' . $data->image) . '" class="img-thumbnail"
+                   width="50%"></img>';
+            })
+            ->addColumn('action', function ($data) {
+                return
+                    '<br><a href="' . route("admin.patient.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
+                     
+                    
+                    ';
+            })
+            ->rawColumns(['image','action']);
     }
 
     /**
@@ -44,18 +55,18 @@ class PatientDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('patient-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('patient-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            );
     }
 
     /**
@@ -71,7 +82,9 @@ class PatientDataTable extends DataTable
             Column::make('email'),
             Column::make('address'),
             Column::make('phone_number'),
+            Column::make('gender'),
             Column::make('image'),
+            Column::make('action'),
         ];
     }
 

@@ -27,6 +27,7 @@ class CreateDoctorsTable extends Migration
             $table->foreign('department')->references('id')->on('departments');
             $table->text('description')->nullable();
             $table->string('shift')->nullable()->comment('1=Morning Or 2=Evening');
+            $table->string('date')->nullable();
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
             $table->boolean('status')->default(1)->comment('0 = inactive, 1 = active');

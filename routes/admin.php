@@ -30,8 +30,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('dashboard', [DashboarController::class, 'department'])->name('dashboard');
 
 
-//---------------------------Admin Profile-----------------------
 
+    //--------------------------------------Admin Profile Module---------------------------
+    Route::get('/profile', [DashboarController::class, 'profileview'])->name('profile_view');
+    Route::post('/profile-update', [DashboarController::class, 'profileupdate'])->name('profile_update');
 
 //--------------------------Doctor Module------------------------
 Route::resource('doctor',DoctorController::class);
@@ -47,8 +49,7 @@ Route::resource('patient',PatientController::class);
 Route::resource('department',DepartmentController::class);
 
 
-//--------------------------Appoinment  Module------------------------
-Route::resource('appoinment',AppoinmentConfirm::class);
+
 
 
 });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Doctor\StoreRequest;
 use App\Models\Department;
 use App\Models\Doctor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +39,14 @@ class DoctorController extends Controller
     
     public function store(StoreRequest $request)
     {
-        $images = uploadFile($request['image'], 'DoctorImage');
+        $image_update = Doctor::where('id', $request['id'])->get()->first();
+        if (isset($request['image'])) {
+            $image = uploadFile($request['image'], 'DoctorImage');
+        } else {
+            $image = $image_update->getRawOriginal('image');
+        }
+        $date = Carbon::now();
+        $todays = $date->toDateString();
         $newUser = Doctor::updateOrCreate([
             'id' => $request->id,
         ], [
@@ -51,9 +59,10 @@ class DoctorController extends Controller
             'description'    => $request->get('description'),
             'address'   => $request->get('address'),
             'shift'   => $request->get('shift'),
+            'date'   => $todays,
             'start_time'   => $request->get('start_time'),
             'end_time'   => $request->get('end_time'),
-            'image'   => $images,
+            'image'   => $image,
         ]);
         $request->session()->flash('success', 'Recoreds Are Added ');
         return redirect()->route('admin.doctor.index');
@@ -69,7 +78,8 @@ class DoctorController extends Controller
     public function edit($id)
     {
         $doctorEdit = Doctor::find($id);
-        return view('admin.dashboard.doctor.edit', compact('doctorEdit'));
+        $dept = Department::pluck('department', 'id')->toArray();
+        return view('admin.dashboard.doctor.edit', compact('doctorEdit','dept'));
     }
 
     
@@ -86,8 +96,8 @@ class DoctorController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        $collegeDelete = Doctor::find($id);
-        $collegeDelete->delete();
+        $doctorDelete = Doctor::find($id);
+        $doctorDelete->delete();
         $request->session()->flash('success', 'Recoreds Are Deleted ');
         return redirect()->route('admin.doctor.index');
     }

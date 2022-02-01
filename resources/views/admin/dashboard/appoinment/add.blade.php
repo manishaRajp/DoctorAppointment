@@ -117,7 +117,14 @@
                         },
                         cache: false,
                         success: function(responseOutput) {
-                            console.log(responseOutput);
+                            if(responseOutput == 1)
+                            {
+                               alert("On This Shift Doctor IS no Available");
+                            }
+                            if(responseOutput == 0)
+                            {
+                                alert("On This Time Doctor IS no Available");
+                            }
                             var responseOutput = JSON.parse(responseOutput);
                             if (responseOutput.statusCode == 200) {
                                 window.location = "/admin/appoinment";
@@ -127,7 +134,7 @@
                         }
                     });
                 } else {
-                    alert('Please fill all the field !');
+                    alert('All Filed Are Requeird');
                 }
 
 

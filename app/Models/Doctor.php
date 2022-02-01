@@ -22,6 +22,7 @@ class Doctor extends Model
         'gender',
         'description',
         'image',
+        'date',
         'shift',
         'start_time',
         'end_time',

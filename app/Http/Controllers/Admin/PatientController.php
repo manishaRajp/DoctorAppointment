@@ -26,18 +26,23 @@ class PatientController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $images = uploadFile($request['image'], 'PatientImage');
+        $image_update = User::where('id', $request['id'])->get()->first();
+        if (isset($request['image'])) {
+            $image = uploadFile($request['image'], 'PatientImage');
+        } else {
+            $image = $image_update->getRawOriginal('image');
+        }
         $newUser = User::updateOrCreate([
-            'email' => $request->get('email'),
+            'id' => $request->id,
         ], [
-            'name'     => $request->get('name'),
-            'email' => $request->get('email'),
-            'phone_number'   => $request->get('phone_number'),
-            'password'    => Hash::make($request->get("password")),
-            'gender'    => $request->get('gender'),
-            'bio'    => $request->get('bio'),
-            'address'   => $request->get('address'),
-            'image'   => $images,
+            'name'     => $request->name,
+            'email' => $request->email,
+            'phone_number'   => $request->phone_number,
+            'password'    => Hash::make($request->password),
+            'gender'    => $request->gender,
+            'bio'    => $request->bio,
+            'address'   => $request->address,
+            'image'   => $image,
         ]);
         return redirect()->route('admin.patient.index');
     }
@@ -51,18 +56,23 @@ class PatientController extends Controller
 
     public function edit($id)
     {
-        //
+        $patient = User::find($id);
+        
+        return view('admin.dashboard.patient.edit', compact('patient'));
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $patientdelete = User::find($id);
+        $patientdelete->delete();
+        $request->session()->flash('success', 'Recoreds Are Deleted ');
+        return redirect()->route('admin.doctor.index');
     }
 }

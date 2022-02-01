@@ -27,16 +27,16 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:doctors,id,'.$id,
-            'password' => 'required',
+            // 'password' => 'required|doctors,id,'.$id,
             'phone_number' => 'required|unique:doctors,id,'.$id,
             'address' => 'required',
             'department' => 'required',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required|in:Male,Female',
             'description' => 'required',
-            'image' => 'required',
-            'shift' => 'required|in:1,2',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'shift' => 'required|in:Morning,Evening',
+            'start_time' => 'required',
+            'end_time' => 'required|after:start_time',
         ];
     }
 }

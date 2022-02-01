@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\AppoinmentsDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Appoinemt\StoreRequest;
+use App\Mail\AppoinmentMail;
 use App\Models\AppoinmentTime;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AppoinmentCotroller extends Controller
 {
@@ -26,7 +29,7 @@ class AppoinmentCotroller extends Controller
         return view('admin.dashboard.appoinment.add', compact('doctor', 'patient'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
 
         $request->validate([
@@ -36,29 +39,32 @@ class AppoinmentCotroller extends Controller
             'shift' => 'required',
             'time' => 'required',
         ]);
-
+        $appoinment='';
         $shift = Doctor::where('id',$request['doctor_id'])->first();
         $available = Doctor::where('id', $request['doctor_id'])->where('start_time','<=',$request->time)->where('end_time', '>=', $request->time)->first();
         $error=0;
         if($shift->shift!=$request->shift)
         {
             $error++;
-            return response()->json(['error'=>'Not available on This shift']);
+            return response()->json(1);
         }
         if(!$available)
         {
             $error++;
-            return response()->json(['error' => 'Not available at that time']);
+            return response()->json(0);
         }
 
         if($error==0)
         {
+            $appoinment = User::all();
+            dd($appoinment);
             AppoinmentTime::create([
                 'doctor_id'=>$request->doctor_id,
                 'user_id'=>$request->user_id,
                 'date'=>$request->date,
                 'time'=>$request->time
             ]);
+            Mail::to($appoinment)->send(new AppoinmentMail($request));
             return json_encode(array(
                 "statusCode" => 200,
             ));
@@ -66,46 +72,25 @@ class AppoinmentCotroller extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         //

@@ -6,10 +6,10 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Drixo</a></li>
                     <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item active">Form Validation</li>
+                    <li class="breadcrumb-item active">Patient</li>
                 </ol>
             </div>
-            <h5 class="page-title">Doctor List</h5>
+            <h5 class="page-title">Patient List</h5>
         </div>
     </div>
     <div class="row">

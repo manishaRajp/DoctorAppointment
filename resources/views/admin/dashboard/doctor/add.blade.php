@@ -6,7 +6,7 @@
         }
 
     </style>
-    
+
     <div class="row">
         <div class="col-sm-12">
             <div class="float-right page-breadcrumb">
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Doctor</h4>
                     <p></p>
-                    {{ Form::open(['route' => 'admin.doctor.store', 'id' => 'doctorForm', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+                    {{ Form::open(['route' => 'admin.doctor.store', 'id' => 'patientform', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                     @csrf
                     <div class="row">
                         <div class="col-md">
@@ -74,8 +74,8 @@
                             </br>
                         </div>
                         <div class="col-md">
-                            {{ Form::label('Department', 'Department') }}
-                            {{ Form::select('department', $dept, null, ['class' => 'form-control', 'id' => 'department']) }}
+                            {{ Form::label('Department') }}
+                            {{ Form::select('department', $dept, null, ['class' => 'form-control', 'placeholder' => 'Select a Department ...', 'id' => 'department']) }}
                             @error('department')
                                 <span class="text-danger" id="departmentError">{{ $message }}</span>
                             @enderror
@@ -84,17 +84,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md">
-                            {{ Form::label('Gender') }}
-                            <div class="form-check form-check-inline">
-                                {{ Form::radio('gender', 'male', ['class' => 'form-check-input']) }} <label
-                                    class="form-check-label ml-2" for="inlineRadio1">Male</label> </div>
-                            <div class="form-check form-check-inline">
-                                {{ Form::radio('gender', 'female', ['class' => 'form-check-input']) }} <label
-                                    class="form-check-label ml-2" for="inlineRadio2">Female</label> </div>
+                            {{ Form::label('Gender', 'Gender') }}
+                            {{ Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], null, ['class' => 'form-control', 'placeholder' => 'Select a Gender...', 'id' => 'gender']) }}
+                            @error('gender')
+                                <span class="text-danger" id="genderError">{{ $message }}</span>
+                            @enderror
+                            </br>
                         </div>
                         <div class="col-md">
                             {{ Form::label('Shift', 'Shift') }}
-                            {{ Form::select('shift', ['1' => 'Morning', '2' => 'Evening'], 'S', ['class' => 'form-control', 'id' => 'shift']) }}
+                            {{ Form::select('shift', ['Morning' => 'Morning', 'Evening' => 'Evening'], null, ['class' => 'form-control', 'placeholder' => 'Select a Shift...', 'id' => 'shift']) }}
                             @error('shift')
                                 <span class="text-danger" id="shiftError">{{ $message }}</span>
                             @enderror
@@ -142,9 +141,9 @@
                     <div class="form-group">
                         <div>
                             {{ Form::submit('submit', ['name' => 'submit', 'id' => 'submit', 'class' => 'btn btn-primary']) }}
-                            <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                           <a href="{{ route('admin.doctor.index')}}"><button type="reset" class="btn btn-secondary waves-effect m-l-5">
                                 Cancel
-                            </button>
+                            </a></button>
                         </div>
                     </div>
                     {{ Form::close() }}
@@ -161,13 +160,12 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
     <script>
-        $("#doctorForm").validate({
+        $("#patientform").validate({
 
             rules: {
                 name: {
                     required: true,
                     maxlength: 225,
-                    letteronly: true
                 },
                 email: {
                     required: true,
@@ -182,7 +180,8 @@
                 phone_number: {
                     required: true,
                     number: true,
-                    minlength: 10
+                    minlength: 10,
+                    maxlength: 11
                 },
                 address: {
                     required: true,

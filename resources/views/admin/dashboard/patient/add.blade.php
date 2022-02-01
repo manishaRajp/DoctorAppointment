@@ -99,21 +99,20 @@
 
 
                             <div class="col-md">
-                                {{ Form::label('Gender') }}
-                                <div class="form-check form-check-inline">
-                                    {{ Form::radio('gender', 'male', ['class' => 'form-check-input']) }} <label
-                                        class="form-check-label ml-2" for="inlineRadio1">Male</label> </div>
-                                <div class="form-check form-check-inline">
-                                    {{ Form::radio('gender', 'female', ['class' => 'form-check-input']) }} <label
-                                        class="form-check-label ml-2" for="inlineRadio2">Female</label> </div></br></br>
+                                {{ Form::label('Gender', 'Gender') }}
+                                {{ Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], null, ['class' => 'form-control', 'placeholder' => 'Select a Gender...', 'id' => 'gender']) }}
+                                @error('gender')
+                                    <span class="text-danger" id="genderError">{{ $message }}</span>
+                                @enderror
+                                </br>
                             </div>
                         </div>
                         <div class="form-group">
                             <div>
                                 {{ Form::submit('submit', ['name' => 'submit', 'id' => 'submit', 'class' => 'btn btn-primary']) }}
-                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
-                                    Cancel
-                                </button>
+                                <a href="{{ route('admin.patient.index')}}"><button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                Cancel
+                            </a></button>
                             </div>
                         </div>
                         {{ Form::close() }}
@@ -135,7 +134,8 @@
             rules: {
                 name: {
                     required: true,
-                    maxlength: 225
+                    maxlength: 225,
+                    letteronly: true
                 },
                 email: {
                     required: true,
@@ -150,7 +150,8 @@
                 phone_number: {
                     required: true,
                     number: true,
-                    minlength: 10
+                    minlength: 10,
+                    maxlength: 11
                 },
                 address: {
                     required: true,

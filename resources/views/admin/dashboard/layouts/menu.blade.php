@@ -49,12 +49,12 @@
                                 class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="{{ route('admin.appoinment.index') }}">View</a></li>
-                        <li><a href="{{ route('admin.appoinment.create') }}">Create</a></li>
+                        <li><a href="{{ route('admin.appoinment.create') }}">Create</a></li>    
                     </ul>
 
                 </li>
-                <li><a href="{{ route('admin.department.create') }}">Department</a></li>
-                <li><a href="{{ route('admin.appoinment.index') }}">Todays Appoinment</a></li>
+
+                          <li><a class="waves-effect" href="{{ route('admin.department.create') }}"><i class="mdi mdi-bookmark">Department</i></a></li>
             </ul>
         </div>
         <div class="clearfix"></div>

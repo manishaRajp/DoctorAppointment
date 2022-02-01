@@ -38,7 +38,10 @@ class AppoinmentsDataTable extends DataTable
             ->editColumn('user_id', function ($data) {
                 return $data->user->name;
             })
-            ->rawColumns(['status', 'doctor_id', 'user_id'])
+            ->editColumn('date', function ($data) {
+                return $data->date;
+            })
+            ->rawColumns(['status', 'doctor_id', 'user_id','date', 'created_at'])
             ->addIndexColumn();
     }
 
@@ -92,11 +95,7 @@ class AppoinmentsDataTable extends DataTable
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
+   
     protected function filename()
     {
         return 'Appoinments_' . date('YmdHis');

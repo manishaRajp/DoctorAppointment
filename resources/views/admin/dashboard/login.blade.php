@@ -52,7 +52,7 @@
                                             <div class="form-group row">
                                                 <div class="col-12">
                                                     <input class="form-control @error('email') is-invalid @enderror"
-                                                        type="text" name="email" id="email" placeholder="Username">
+                                                        type="text" name="email" id="email" placeholder="Username" value="{{ old('email') }}">
                                                     @error('email')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
