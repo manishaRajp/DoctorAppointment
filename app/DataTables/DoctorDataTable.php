@@ -26,15 +26,10 @@ class DoctorDataTable extends DataTable
                    width="50%"></img>';
             })
             ->addColumn('action', function ($data) {
+                // dd($data);
                 return
                     '<br><a href="' . route("admin.doctor.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
-                      <form action="' . route("admin.doctor.destroy", $data->id) . '" method="POST">
-                    ' . csrf_field() . '
-                    ' . method_field("DELETE") . '
-                        <button type="submit" class="btn btn-danger"
-                        onclick="return confirm(\'Are You Sure Want to Delete?\')"
-                        ><i class="fa fa-trash"></i>
-                  </form>
+                    <button type="button" id="delete_doctor" data-id= "' . $data->id . '"class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                     ';
             })
             ->editColumn('department', function ($data) {

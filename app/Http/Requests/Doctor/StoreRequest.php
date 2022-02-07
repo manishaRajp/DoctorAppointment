@@ -23,20 +23,19 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        $id = request()->id;
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:doctors,id,'.$id,
-            // 'password' => 'required|doctors,id,'.$id,
-            'phone_number' => 'required|unique:doctors,id,'.$id,
+            'email' => 'required|email|unique:doctors',
+            'password' => 'required',
+            'phone_number' => 'required|unique:doctors',
             'address' => 'required',
             'department' => 'required',
             'gender' => 'required|in:Male,Female',
             'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
             'shift' => 'required|in:Morning,Evening',
             'start_time' => 'required',
             'end_time' => 'required|after:start_time',
+            'image' => 'required|mimes:jpeg,png,jpg,svg|max:2048',
         ];
     }
 }

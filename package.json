@@ -16,7 +16,15 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1"
+    },
+    "dependencies": {
+        "detect.js": "^2.2.3",
+        "jquery": "^3.6.0",
+        "jquery-blockui": "^2.7.0",
+        "node-sass": "^6.0.1",
+        "waves": "^0.1.1"
     }
 }

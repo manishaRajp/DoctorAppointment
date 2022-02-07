@@ -24,37 +24,19 @@
                         <span> Dashboard <span class="badge badge-success badge-pill float-right"></span></span>
                     </a>
                 </li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-plus"></i><span>
-                            Doctot
-                            List </span> <span class="menu-arrow float-right"><i
-                                class="mdi mdi-chevron-right"></i></span></a>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('admin.doctor.index') }}">View</a></li>
-                        <li><a href="{{ route('admin.doctor.create') }}">Create</a></li>
-                    </ul>
-                </li>
-                  <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-bed"></i><span>
-                            Patient </span> <span class="menu-arrow float-right"><i
-                                class="mdi mdi-chevron-right"></i></span></a>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('admin.patient.index') }}">View</a></li>
-                        <li><a href="{{ route('admin.patient.create') }}">Create</a></li>
-                    </ul>
-                </li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-alarm-plus"></i><span>
-                            Appoinment </span> <span class="menu-arrow float-right"><i
-                                class="mdi mdi-chevron-right"></i></span></a>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('admin.appoinment.index') }}">View</a></li>
-                        <li><a href="{{ route('admin.appoinment.create') }}">Create</a></li>    
-                    </ul>
+                <li><a class="waves-effect" href="{{ route('admin.doctor.index') }}"><i
+                            class="mdi mdi-account-plus"></i><span>Doctor</span></a></li>
 
-                </li>
+                <li><a class="waves-effect" href="{{ route('admin.patient.index') }}"><i
+                            class="fa fa-bed"></i><span>Patient</span></a></li>
 
-                          <li><a class="waves-effect" href="{{ route('admin.department.create') }}"><i class="mdi mdi-bookmark">Department</i></a></li>
+                <li><a class="waves-effect" href="{{ route('admin.appoinment.index') }}"><i
+                            class="mdi mdi-alarm-plus"></i><span>Appoinement</span></a></li>
+
+                <li><a class="waves-effect" href="{{ route('admin.department.create') }}"><i
+                            class="mdi mdi-bookmark"></i><span>Department</span></a></li>
+                <li><a class="waves-effect" href="{{ route('admin.payment_view') }}"><i
+                            class="ion-social-foursquare"></i><span>Payment</span></a></li>
             </ul>
         </div>
         <div class="clearfix"></div>

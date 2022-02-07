@@ -23,14 +23,13 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        $id = request()->id;
         return [
             'name' => 'required|alpha_dash',
-            'email' => 'required|email|unique:users,id,'.$id,
-            // 'password' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
             'address' => 'required',
-            'phone_number' => 'required|unique:users,id,'.$id,
-            'image' => 'nullable',
+            'phone_number' => 'required|unique:users',
+            'image' => 'required',
             'gender' => 'required|in:Male,Female',
             'bio' => 'required',
         ];

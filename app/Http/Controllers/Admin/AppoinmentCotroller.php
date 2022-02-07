@@ -31,66 +31,54 @@ class AppoinmentCotroller extends Controller
 
     public function store(StoreRequest $request)
     {
-
         $request->validate([
             'doctor_id' => 'required',
-            'user_id'=> 'required',
+            'user_id' => 'required',
             'date' => 'required',
             'shift' => 'required',
             'time' => 'required',
         ]);
-        $appoinment='';
-        $shift = Doctor::where('id',$request['doctor_id'])->first();
-        $available = Doctor::where('id', $request['doctor_id'])->where('start_time','<=',$request->time)->where('end_time', '>=', $request->time)->first();
-        $error=0;
-        if($shift->shift!=$request->shift)
-        {
+        $appoinment = '';
+        $shift = Doctor::where('id', $request['doctor_id'])->first();
+        $available = Doctor::where('id', $request['doctor_id'])->where('start_time', '<=', $request->time)->where('end_time', '>=', $request->time)->first();
+        $error = 0;
+        if ($shift->shift != $request->shift) {
             $error++;
             return response()->json(1);
         }
-        if(!$available)
-        {
+        if (!$available) {
             $error++;
             return response()->json(0);
         }
-
-        if($error==0)
-        {
-            $appoinment = User::all();
-            dd($appoinment);
-            AppoinmentTime::create([
-                'doctor_id'=>$request->doctor_id,
-                'user_id'=>$request->user_id,
-                'date'=>$request->date,
-                'time'=>$request->time
-            ]);
+        if ($error == 0) {
+            AppoinmentTime::create($request->all());
+            $appoinment = AppoinmentTime::select(DB::raw('(select email from users where id = user_id)as email'))->first();
             Mail::to($appoinment)->send(new AppoinmentMail($request));
             return json_encode(array(
                 "statusCode" => 200,
             ));
         }
-
     }
 
-  
+
     public function show($id)
     {
         //
     }
 
-   
+
     public function edit($id)
     {
         //
     }
 
-   
+
     public function update(Request $request, $id)
     {
         //
     }
 
-   
+
     public function destroy($id)
     {
         //

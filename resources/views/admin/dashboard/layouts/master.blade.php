@@ -12,20 +12,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
     <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}">
-    <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('admin/assets/css/icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/all.css') }}">
     @stack('css')
 </head>
 
 <body class="fixed-left">
     <!-- Loader -->
-    <div id="preloader">
+    {{-- <div id="preloader">
         <div id="status">
             <div class="spinner"></div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -64,6 +61,7 @@
         <!-- App js -->
         <script src="{{ asset('admin/assets/js/app.js') }}"></script>
 
+        {{-- <script src="{{ asset('admin/assets/js/all.js') }}"></script> --}}
         @stack('scripts')
 </body>
 @include('admin.dashboard.layouts.footer')

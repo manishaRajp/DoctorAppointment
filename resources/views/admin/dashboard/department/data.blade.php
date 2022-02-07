@@ -10,19 +10,18 @@
         <div class="col-sm-12">
             <div class="float-right page-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Drixo</a></li>
-                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item active">Doctor</li>
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Back</a></li>
                 </ol>
             </div>
-            <h5 class="page-title">Add Doctor</h5>
+            <h5 class="page-title"></h5>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card m-b-30">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title">Doctor</h4>
+                    <h4 class="mt-0 header-title"></h4>
                     <p></p>
                     {{ Form::open(['route' => 'admin.department.store', 'id' => 'doctorForm', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                     @csrf

@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\loginController;
 use App\Http\Controllers\Admin\PatientController;
-use App\Http\Controllers\AppoinmentConfirm;
+use App\Http\Controllers\Admin\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,22 +35,25 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/profile', [DashboarController::class, 'profileview'])->name('profile_view');
     Route::post('/profile-update', [DashboarController::class, 'profileupdate'])->name('profile_update');
 
-//--------------------------Doctor Module------------------------
-Route::resource('doctor',DoctorController::class);
+    //--------------------------Doctor Module------------------------
+    Route::resource('doctor', DoctorController::class);
+    Route::post('doctor-data', [DoctorController::class, 'update'])->name('update_data');
+    Route::get('/delete-data', [DoctorController::class, 'destroy'])->name('delete_data');
 
-//--------------------------Appoinment Module------------------------
-Route::resource('appoinment',AppoinmentCotroller::class);
+    //--------------------------Appoinment Module------------------------
+    Route::resource('appoinment', AppoinmentCotroller::class);
 
-//--------------------------Patint Module------------------------
-Route::resource('patient',PatientController::class);
-
-
-//--------------------------Patint Module------------------------
-Route::resource('department',DepartmentController::class);
-
-
+    //--------------------------Patint Module------------------------
+    Route::resource('patient', PatientController::class);
+    Route::post('patient-data', [PatientController::class, 'update'])->name('patient_data');
+    Route::get('patient-delete', [PatientController::class, 'destroy'])->name('patient-delete');
 
 
+    //--------------------------Department Module------------------------
+    Route::resource('department', DepartmentController::class);
 
+
+    //-------------paynment-----------------------------------------
+    Route::get('payment-view', [PaymentController::class, 'payment'])->name('payment_view');
+    Route::post('make-payment', [PaymentController::class, 'addpayment'])->name('make_payment');
 });
-

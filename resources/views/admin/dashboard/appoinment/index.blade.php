@@ -3,11 +3,10 @@
  <div class="row">
         <div class="col-sm-12">
             <div class="float-right page-breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#"></a></li>
-                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item active">Appoinment List</li>
-                </ol>
+              <div class="page_title">
+                    <a href="{{ route('admin.appoinment.create') }}" class="btn btn-info float-left">
+                        Add Appoinement</a>&nbsp;
+                </div>
             </div>
             <h5 class="page-title">Appoinments</h5>
         </div>

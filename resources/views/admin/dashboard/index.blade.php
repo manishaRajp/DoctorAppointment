@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layouts.master')
 @section('content')
-{{-- @dd($appoinment) --}}
+    {{-- @dd($appoinment) --}}
     <div class="page-content-wrapper ">
         <div class="container-fluid">
             <div class="row">
@@ -57,13 +57,25 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- <div>Appoinment Doctor Wise</div> --}}
                 <!DOCTYPE html>
                 <html>
 
                 <head>
                     <style>
+                        body {
+                            counter-reset: Serial;
+                            /* Set the Serial counter to 0 */
+                        }
+
+
+                        tr td:first-child:before {
+                            counter-increment: Serial;
+                            /* Increment the Serial counter */
+                            content: " "counter(Serial);
+                            /* Display the counter */
+                        }
+
                         table {
                             font-family: arial, sans-serif;
                             border-collapse: collapse;
@@ -95,7 +107,7 @@
 
                         @foreach ($appoinmentTodays as $value)
                             <tr>
-                                <td>{{1}}</td>
+                                <td></td>
                                 <td>{{ $value->name }}</td>
                                 <td>{{ $value->id }}</td>
                             </tr>

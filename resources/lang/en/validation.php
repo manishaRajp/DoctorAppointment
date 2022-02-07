@@ -141,8 +141,20 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'time' => [
+            'required' => 'The Time is required....',
+        ],
+        'shift' => [
+            'required' => 'The shift is required...',
+        ],
+        'user_id' => [
+            'required' => 'The Patient Selection is required...',
+        ],
+        'doctor_id' => [
+            'required' => 'The Doctor Selection is required..',
+        ],
+        'date' => [
+            'required' => 'The Date is required...',
         ],
     ],
 

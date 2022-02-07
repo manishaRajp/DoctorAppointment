@@ -23,15 +23,7 @@ class AppoinmentsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('status', function ($data) {
-            if ($data->status == 1) {
-                return '<a class="btn btn-primary btn-xs">Confirm</a>';
-            } else if ($data->status == 2) {
-                return '<a class="btn btn-danger btn-xs">Reject</a>';
-            } else {
-                return '<a class="btn btn-warning btn-xs">Pending</a>';
-            }
-            })
+            
             ->editColumn('doctor_id', function ($data) {
                 return $data->doctor->name;
             })
@@ -41,7 +33,7 @@ class AppoinmentsDataTable extends DataTable
             ->editColumn('date', function ($data) {
                 return $data->date;
             })
-            ->rawColumns(['status', 'doctor_id', 'user_id','date', 'created_at'])
+            ->rawColumns(['doctor_id', 'user_id','date', 'created_at'])
             ->addIndexColumn();
     }
 
@@ -89,9 +81,10 @@ class AppoinmentsDataTable extends DataTable
             Column::make('id')->data('DT_RowIndex')->orderable(false)->title('Sr.no'),
             Column::make('doctor_id')->name('doctor.name')->title('Doctor'),
             Column::make('user_id')->name('user.name')->title('Patient'),
-            Column::make('date'),
+            // Column::make('date'),
+            Column::make('shift'),
             Column::make('time'),
-            Column::make('status'),
+           
         ];
     }
 

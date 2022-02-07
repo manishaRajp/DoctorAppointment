@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\PatientDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Patient\StoreRequest;
+use App\Http\Requests\Patient\updateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,25 +27,11 @@ class PatientController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $image_update = User::where('id', $request['id'])->get()->first();
-        if (isset($request['image'])) {
-            $image = uploadFile($request['image'], 'PatientImage');
-        } else {
-            $image = $image_update->getRawOriginal('image');
-        }
-        $newUser = User::updateOrCreate([
-            'id' => $request->id,
-        ], [
-            'name'     => $request->name,
-            'email' => $request->email,
-            'phone_number'   => $request->phone_number,
-            'password'    => Hash::make($request->password),
-            'gender'    => $request->gender,
-            'bio'    => $request->bio,
-            'address'   => $request->address,
-            'image'   => $image,
-        ]);
-        return redirect()->route('admin.patient.index');
+        $image = uploadFile($request['image'], 'PatientImage');
+        $input = $request->all();
+        $input['image'] = $image;
+        User::create($input);
+        return response()->json(["statusCode" => 200]);
     }
 
 
@@ -56,23 +43,30 @@ class PatientController extends Controller
 
     public function edit($id)
     {
-        $patient = User::find($id);
-        
+        $patient = User::find($id); 
         return view('admin.dashboard.patient.edit', compact('patient'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(updateRequest $request)
     {
+        $patient = User::find($request['id']);
+        if (isset($request['image'])) {
+            $image = uploadFile($request['image'], 'patientImage');
+        } else {
+            $image = $patient->getRawOriginal('image');
+        }
+        $input = $request->all();
+        $input['image'] = $image;
+        $patient->update($input);
+        return response()->json(['success' => 'patient updated successfully']);
        
     }
 
 
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request)
     {
-        $patientdelete = User::find($id);
-        $patientdelete->delete();
-        $request->session()->flash('success', 'Recoreds Are Deleted ');
-        return redirect()->route('admin.doctor.index');
+        $delete = User::where('id', $request->id)->delete();
+        return response()->json(['data' => $delete]);
     }
 }

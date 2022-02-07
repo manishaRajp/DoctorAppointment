@@ -2517,7 +2517,7 @@ table.focus-on tbody tr.focused td {
 }
 
 .bg-sale-wid {
-  background-image: url("../images/bg-sale-wid.png");
+  /* background-image: url("../images/bg-sale-wid.png"); */
   background-size: cover;
   background-position: center;
 }

@@ -29,11 +29,12 @@ class PatientDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 return
                     '<br><a href="' . route("admin.patient.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
-                     
-                    
+                     <button type="button" id="delete_patient" data-id= "' . $data->id . '"class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                     ';
             })
-            ->rawColumns(['image','action']);
+            ->rawColumns(['image','action'])
+             ->addIndexColumn();
+
     }
 
     /**
@@ -58,7 +59,7 @@ class PatientDataTable extends DataTable
             ->setTableId('patient-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom('Bfrtip')
+            ->dom('Blfrtip')
             ->orderBy(1)
             ->buttons(
                 Button::make('create'),
@@ -77,7 +78,7 @@ class PatientDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
+            Column::make('id')->data('DT_RowIndex')->orderable(false)->title('Sr.no'),
             Column::make('name'),
             Column::make('email'),
             Column::make('address'),
