@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProfileUpdate;
 use App\Models\Admin;
+use App\Models\Appoinment;
 use App\Models\AppoinmentTime;
 use App\Models\Department;
 use App\Models\Doctor;
@@ -24,8 +25,8 @@ class DashboarController extends Controller
     $doctor = Doctor::get();
     $doctortodays = Doctor::Where('date', $todays)->get();
     $patient = User::get();
-    $appoinemt = AppoinmentTime::get();
-    $appoinmentTodays = AppoinmentTime::select(DB::raw('(select name from doctors where id=doctor_id)as name'), DB::raw('count(id) as id '))->Where('date', $todays)->groupBy('doctor_id')->get();
+    $appoinemt = Appoinment::get();
+    $appoinmentTodays = Appoinment::select(DB::raw('(select name from doctors where id=doctor_id)as name'), DB::raw('count(id) as id '))->Where('date', $todays)->groupBy('doctor_id')->get();
     return view('admin.dashboard.index', compact('dept', 'doctor', 'patient', 'appoinemt', 'appoinmentTodays', 'doctortodays'));
   }
 

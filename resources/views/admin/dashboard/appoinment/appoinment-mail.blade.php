@@ -12,7 +12,7 @@
 
 <body>
     <div class="card">
-        <div class="top"><span>Hello Patient</span>
+        <div class="top"><span>Hello {{$appoinment->name}}</span>
             <div class="bottom">
                 <p>Your Appoinment booked on {{$appoinment->date}} at {{$appoinment->time}}</p>
                 <h5>Thank you</h5>

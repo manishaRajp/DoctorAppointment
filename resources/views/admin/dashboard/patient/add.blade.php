@@ -93,8 +93,6 @@
                                 @enderror
                                 </br>
                             </div>
-
-
                             <div class="col-md">
                                 {{ Form::label('Gender', 'Gender') }}
                                 {{ Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], null, ['class' => 'form-control','placeholder' => 'Select a Gender...','id' => 'gender']) }}

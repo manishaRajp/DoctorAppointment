@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     //--------------------------Appoinment Module------------------------
     Route::resource('appoinment', AppoinmentCotroller::class);
+    Route::get('change-status', [AppoinmentCotroller::class, 'status'])->name('change_status');
 
     //--------------------------Patint Module------------------------
     Route::resource('patient', PatientController::class);

@@ -26,12 +26,13 @@ class DoctorDataTable extends DataTable
                    width="50%"></img>';
             })
             ->addColumn('action', function ($data) {
-                // dd($data);
                 return
                     '<br><a href="' . route("admin.doctor.edit", $data->id) . '"class="btn btn-outline-info"><i class="fa fa-pencil"></i></a>
                     <button type="button" id="delete_doctor" data-id= "' . $data->id . '"class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                     ';
             })
+
+
             ->editColumn('department', function ($data) {
                 return $data->departments_id->department;
             })
@@ -90,6 +91,7 @@ class DoctorDataTable extends DataTable
             Column::make('shift')->orderable(false)->title('Shift'),
             Column::make('start_time')->orderable(false)->title('Start At'),
             Column::make('end_time')->orderable(false)->title('End AT'),
+            Column::make('status')->orderable(false)->title('Status'),
             Column::make('image')->orderable(false)->title('Image'),
             Column::computed('action')->title('Action'),
 

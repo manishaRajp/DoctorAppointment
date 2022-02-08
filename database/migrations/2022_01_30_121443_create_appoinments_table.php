@@ -22,7 +22,7 @@ class CreateAppoinmentsTable extends Migration
             $table->string('date')->nullable();
             $table->string('shift')->nullable()->comment('1=Morning Or 2=Evening');
             $table->string('time')->nullable();
-            $table->boolean('status')->default(1)->comment('0 = Confirm, 1 = Reject 2=Pending');
+            $table->enum('status', ['0', '1','2'])->default(0)->comment('0 = Pendding, 1 = Confirm 2=Reject');
             $table->softDeletes();
             $table->timestamps();
         });

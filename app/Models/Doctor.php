@@ -11,6 +11,7 @@ class Doctor extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $table = 'doctors';
     protected $fillable = [
         'id',
         'name',
@@ -26,6 +27,7 @@ class Doctor extends Model
         'shift',
         'start_time',
         'end_time',
+        'status',
     ];
 
 

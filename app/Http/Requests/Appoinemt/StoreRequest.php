@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Appoinemt;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreRequest extends FormRequest
 {
@@ -21,13 +22,21 @@ class StoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+       
         return [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            // 'password' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required|unique:users',
+            'image' => 'required',
+            'gender' => 'required|in:Male,Female',
+            // 'bio' => 'required',
             'doctor_id' => 'required',
-            'user_id' => 'required',
-            'date' => 'required',
             'shift' => 'required:in:1,2',
+            'date' => 'required',
             'time' => 'required',
         ];
     }

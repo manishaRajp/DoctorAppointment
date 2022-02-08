@@ -26,10 +26,6 @@
                 </li>
                 <li><a class="waves-effect" href="{{ route('admin.doctor.index') }}"><i
                             class="mdi mdi-account-plus"></i><span>Doctor</span></a></li>
-
-                <li><a class="waves-effect" href="{{ route('admin.patient.index') }}"><i
-                            class="fa fa-bed"></i><span>Patient</span></a></li>
-
                 <li><a class="waves-effect" href="{{ route('admin.appoinment.index') }}"><i
                             class="mdi mdi-alarm-plus"></i><span>Appoinement</span></a></li>
 

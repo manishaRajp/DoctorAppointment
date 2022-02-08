@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Doctor;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreRequest extends FormRequest
 {
@@ -21,8 +22,14 @@ class StoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        $time = "";
+        if ($request['shift'] == 'Morning') {
+            $time = 'before: 12:00';
+        } else {
+            $time = 'after: 12:00';
+        }
         return [
             'name' => 'required',
             'email' => 'required|email|unique:doctors',
@@ -33,7 +40,7 @@ class StoreRequest extends FormRequest
             'gender' => 'required|in:Male,Female',
             'description' => 'required',
             'shift' => 'required|in:Morning,Evening',
-            'start_time' => 'required',
+            'start_time' => 'required | ' . $time,
             'end_time' => 'required|after:start_time',
             'image' => 'required|mimes:jpeg,png,jpg,svg|max:2048',
         ];

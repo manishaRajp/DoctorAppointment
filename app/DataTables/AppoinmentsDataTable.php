@@ -3,8 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\Appoinment;
-use App\Models\AppoinmentTime;
-use App\Models\Time;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -23,7 +21,16 @@ class AppoinmentsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            
+            ->editColumn('status', function ($data) {
+                if ($data->status == 0) {
+                    return '<a data-id="' . $data->id . '"  class="btn-sm btn btn-info status">Pending</a>';
+                } elseif ($data->status == 1) {
+                    return '<a data-id="' . $data->id . '"   class="btn-sm btn btn-success status">Confirm</a>';
+                } else {
+                    return '<a data-id="' . $data->id . '"  class="btn-sm  btn btn-warning  status">Reject</a>';
+                }
+            })
+
             ->editColumn('doctor_id', function ($data) {
                 return $data->doctor->name;
             })
@@ -33,7 +40,11 @@ class AppoinmentsDataTable extends DataTable
             ->editColumn('date', function ($data) {
                 return $data->date;
             })
-            ->rawColumns(['doctor_id', 'user_id','date', 'created_at'])
+            ->filterColumn('doctor_id', function ($data, $keyword) {
+                $sql = "doctors.name like ?";
+                $data->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->rawColumns(['status','doctor_id', 'user_id', 'date'])
             ->addIndexColumn();
     }
 
@@ -43,9 +54,13 @@ class AppoinmentsDataTable extends DataTable
      * @param \App\Models\Appoinment $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(AppoinmentTime $model)
+    public function query(Appoinment $model)
     {
-        return $model->with('doctor', 'user')->newQuery();
+        $model = $model
+            ->join('doctors', 'doctors.id', '=', 'appoinments.doctor_id')
+            ->select('appoinments.*','doctors.name')
+            ->newQuery();
+        return $model->with(['doctor', 'user'])->newQuery();
     }
 
     /**
@@ -79,16 +94,18 @@ class AppoinmentsDataTable extends DataTable
     {
         return [
             Column::make('id')->data('DT_RowIndex')->orderable(false)->title('Sr.no'),
-            Column::make('doctor_id')->name('doctor.name')->title('Doctor'),
+            Column::make('doctor_id')->title('Doctor'),
             Column::make('user_id')->name('user.name')->title('Patient'),
             // Column::make('date'),
             Column::make('shift'),
             Column::make('time'),
-           
+            Column::make('status'),
+
+
         ];
     }
 
-   
+
     protected function filename()
     {
         return 'Appoinments_' . date('YmdHis');
