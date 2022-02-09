@@ -16,6 +16,7 @@ mix.styles([
     'public/admin/assets/css/bootstrap.min.css',
     'public/admin/assets/css/icons.css',
     'public/admin/assets/css/style.css',
+   'public/admin/assets/css/all.min.css',
 ], 'public/admin/assets/css/all.css');
 
 

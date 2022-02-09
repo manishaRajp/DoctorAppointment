@@ -13,16 +13,17 @@
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/all.css') }}">
+  
     @stack('css')
 </head>
 
 <body class="fixed-left">
     <!-- Loader -->
-    {{-- <div id="preloader">
+    <div id="preloader">
         <div id="status">
             <div class="spinner"></div>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Begin page -->
     <div id="wrapper">

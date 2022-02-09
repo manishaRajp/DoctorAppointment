@@ -31,8 +31,8 @@
 
                 <li><a class="waves-effect" href="{{ route('admin.department.create') }}"><i
                             class="mdi mdi-bookmark"></i><span>Department</span></a></li>
-                <li><a class="waves-effect" href="{{ route('admin.payment_view') }}"><i
-                            class="ion-social-foursquare"></i><span>Payment</span></a></li>
+                {{-- <li><a class="waves-effect" href="{{ route('admin.payment_view') }}"><i
+                            class="ion-social-foursquare"></i><span>Payment</span></a></li> --}}
             </ul>
         </div>
         <div class="clearfix"></div>

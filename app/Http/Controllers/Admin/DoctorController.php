@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\doctorContract;
 use App\DataTables\DoctorDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Doctor\StoreRequest;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
+
+    public function __construct(doctorContract $doctorsevrice)
+    {
+        $this->doctorsevrice = $doctorsevrice;
+    }
+
 
     public function index(DoctorDataTable $dataTable)
     {
@@ -32,11 +39,7 @@ class DoctorController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $image = uploadFile($request['image'], 'DoctorImage');
-        $input = $request->all();
-        $input['image']=$image;
-        Doctor::create($input);
-        return response()->json(["statusCode" => 200]);
+        return $this->doctorsevrice->store($request->all());
     }
 
 
@@ -56,16 +59,7 @@ class DoctorController extends Controller
 
     public function update(updateRequest $request)
     {
-        $doctor = Doctor::find($request['id']);
-        if (isset($request['image'])) {
-            $image = uploadFile($request['image'], 'DoctorImage');
-        } else {
-            $image = $doctor->getRawOriginal('image');
-        }
-        $input = $request->all();
-        $input['image'] = $image;
-        $doctor->update($input);
-        return response()->json(['success' => 'doctor updated successfully']);
+        return $this->doctorsevrice->update($request->all());
     }
 
 

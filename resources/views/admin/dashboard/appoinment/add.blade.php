@@ -1,9 +1,59 @@
 @extends('admin.dashboard.layouts.master')
 @section('content')
     <style>
+        .chat-loader {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 9999;
+            display: none;
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .chat-loader::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 48%;
+            top: 40%;
+            width: 40px;
+            height: 40px;
+            border-style: solid;
+            border-color: black;
+            border-top-color: transparent;
+            border-width: 4px;
+            border-radius: 50%;
+            -webkit-animation: spin .8s linear infinite;
+            animation: spin .8s linear infinite;
+        }
+
         .texterror {
             color: red;
         }
+
     </style>
     <div class="row">
         <div class="col-sm-12">
@@ -17,13 +67,14 @@
             <h5 class="page-title">Add Appoinment</h5>
         </div>
     </div>
-    <!-- end row -->
-
+    <div class="chat-loader">
+        <i class="fas fa-spinner fa-spin">Please Waity......</i>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card m-b-30">
                 <div class="card-body">
-                    <h4 class="mt-0 header-title">Appoinment</h4>
+                    <h4 class="mt-0 header-title"></h4>
                     <p></p>
                     {{ Form::open(['route' => 'admin.appoinment.store','method' => 'post','id' => 'appoinment_form','files' => true]) }}
                     <div class="row">
@@ -136,6 +187,7 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
     <script>
+        $(".chat-loader").fadeOut('slow');
         $(document).ready(function() {
             $("#appoinment_form").validate({
                 rules: {
@@ -187,6 +239,7 @@
                     event.preventDefault();
                     $(document).find('.text-danger').remove();
                     var formdata = new FormData(form);
+
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -198,14 +251,19 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                       
+                        beforeSend: function() {
+                            $(".chat-loader").fadeIn('slow');
+                        },
                         success: function(responseOutput) {
                             if (responseOutput.statusCode == 422) {
+                                $(".chat-loader").fadeOut('slow');
                                 alert('Doctor is busy');
                             } else {
                                 if (responseOutput == '1') {
+                                    $(".chat-loader").fadeOut('slow');
                                     alert("On This Shift Doctor IS no Available");
                                 } else if (responseOutput == '0') {
+                                    $(".chat-loader").fadeOut('slow');
                                     alert("On This Time Doctor IS no Available");
                                 } else {
                                     window.location = "/admin/appoinment";
@@ -213,6 +271,7 @@
                             }
                         },
                         error: function(error) {
+                             $(".chat-loader").fadeOut('slow');
                             $.each(error.responseJSON.errors, function(key, value) {
                                 $('#' + key).after('<span class="text-danger">' +
                                     value +

@@ -238,7 +238,6 @@
 
         });
         $(document).on('click', '#delete_doctor', function() {
-            alert(54654);
             var id = $(this).data('id');
             swal({
                 title: "Do u want to delete Records !",

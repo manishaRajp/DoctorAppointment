@@ -91,7 +91,6 @@ class DoctorDataTable extends DataTable
             Column::make('shift')->orderable(false)->title('Shift'),
             Column::make('start_time')->orderable(false)->title('Start At'),
             Column::make('end_time')->orderable(false)->title('End AT'),
-            Column::make('status')->orderable(false)->title('Status'),
             Column::make('image')->orderable(false)->title('Image'),
             Column::computed('action')->title('Action'),
 
